@@ -1,5 +1,4 @@
 import streamlit as st
-import tensorflow as tf
 import pandas as pd
 import pickle
 import os
@@ -79,14 +78,13 @@ if uploaded_file is not None:
     
     model_path = "GBR_IPK_model.pkl"
  
-    # Memuat model
     if os.path.exists(model_path):
         with open(model_path, "rb") as f:
             loaded_model = pickle.load(f)
-        
-        scaler = loaded_model["scaler"]
-        feature_selector = loaded_model["feature_selector"]
-        GBR_model = loaded_model["GBR_model"]
+ 
+        scaler = loaded_model[0]
+        feature_selector = loaded_model[1]
+        GBR_model = loaded_model[2]
         
         # Sidebar inputs
         st.sidebar.subheader("Masukkan Nilai")
@@ -117,17 +115,12 @@ if uploaded_file is not None:
         kkm_mtk3 = st.sidebar.number_input("KKM Nilai Matematika Semester 2.1", 0.0, 100.0)
         kkm_mtk4 = st.sidebar.number_input("KKM Nilai Matematika Semester 2.2", 0.0, 100.0)
 
-        input_values = [
-            mtk1, mtk2, mtk3, mtk4, 
-            ing1, ing2, ing3, ing4, 
-            ind1, ind2, ind3, ind4, 
-            kkm_ind1, kkm_ind2, kkm_ind3, kkm_ind4, 
-            kkm_ing1, kkm_ing2, kkm_ing3, kkm_ing4, 
-            kkm_mtk1, kkm_mtk2, kkm_mtk3, kkm_mtk4
-        ]
+        input_data = [mtk1, mtk2, mtk3, mtk4, ing1, ing2, ing3, ing4, ind1, ind2, ind3, ind4, 
+                    kkm_ind1, kkm_ind2, kkm_ind3, kkm_ind4, kkm_ing1, kkm_ing2, kkm_ing3, kkm_ing4, 
+                    kkm_mtk1, kkm_mtk2, kkm_mtk3, kkm_mtk4]
 
         try:
-            input_data_scaled = scaler.transform([input_values])
+            input_data_scaled = scaler.transform([input_data])
             input_data_selected = feature_selector.transform(input_data_scaled)
 
             if st.sidebar.button("Prediksi!"):
