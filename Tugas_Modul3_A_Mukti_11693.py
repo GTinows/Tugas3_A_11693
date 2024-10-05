@@ -75,13 +75,13 @@ if uploaded_file is not None:
     input_data = pd.read_csv(uploaded_file)
     st.markdown("<h3 style='text-align: center; color:#0073e6;'>Data yang diupload</h3>", unsafe_allow_html=True)
     st.dataframe(input_data)
-
+    
     model_path = r"GBR_IPK_model.pkl"
-
+ 
     if os.path.exists(model_path):
         with open(model_path, "rb") as f:
             loaded_model = pickle.load(f)
-
+ 
         scaler = loaded_model[0]
         feature_selector = loaded_model[1]
         GBR_model = loaded_model[2]
