@@ -85,7 +85,7 @@ if uploaded_file is not None:
         scaler = loaded_model[0]
         feature_selector = loaded_model[1]
         GBR_model = loaded_model[2]
-
+        
         # Sidebar inputs
         st.sidebar.subheader("Masukkan Nilai")
         mtk1 = st.sidebar.number_input("Nilai Matematika Semester 1.1", 60.0, 100.0)
