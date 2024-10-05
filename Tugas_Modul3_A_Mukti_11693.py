@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 import os
 
+# Styling
 st.markdown(
     """
     <style>
@@ -54,6 +55,7 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True)
 
+# Welcome image
 st.markdown(
     """
     <div class="center">
@@ -61,19 +63,20 @@ st.markdown(
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center; color: #4CAF50;'>Prediksi IPK - 1815</h1>", unsafe_allow_html=True)
+# Title
+st.markdown("<h1 style='text-align: center; color: #4CAF50;'>Prediksi IPK - 11693</h1>", unsafe_allow_html=True)
 st.markdown("""<p style = 'text-align: center; color : #0073e6;'>Aplikasi ini berguna untuk memprediksi IPK berdasarkan nilai Matematika, Bahasa Inggris, dan Bahasa Indonesia</p>""", unsafe_allow_html=True)
 
+# Sidebar
 st.sidebar.markdown("<h3 class='header-text'>Input File dan Input Nilai</h3>", unsafe_allow_html=True)
 uploaded_file = st.sidebar.file_uploader("Upload file dataset_regresi_IPK.csv", type=["csv"])
 
 if uploaded_file is not None:
     input_data = pd.read_csv(uploaded_file)
-    st.write("<h3 style = 'text-align: center; color:#0073e6;'>Data yang diupload</h3>",unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color:#0073e6;'>Data yang diupload</h3>", unsafe_allow_html=True)
     st.dataframe(input_data)
 
-    model_directory = r"C:\Kuliah_PBP\Tugas3_A_11693"
-    model_path = os.path.join(model_directory, r"GBR_IPK_model.pkl")
+    model_path = r"C:\Users\mukti\OneDrive\Documents\Data Kuliah\Semester 5\ML\Tugas3_A_11693\GBR_IPK_model.pkl"
 
     if os.path.exists(model_path):
         with open(model_path, "rb") as f:
@@ -83,8 +86,8 @@ if uploaded_file is not None:
         feature_selector = loaded_model[1]
         GBR_model = loaded_model[2]
 
+        # Sidebar inputs
         st.sidebar.subheader("Masukkan Nilai")
-        
         mtk1 = st.sidebar.number_input("Nilai Matematika Semester 1.1", 60.0, 100.0)
         mtk2 = st.sidebar.number_input("Nilai Matematika Semester 1.2", 60.0, 100.0)
         mtk3 = st.sidebar.number_input("Nilai Matematika Semester 2.1", 60.0, 100.0)
